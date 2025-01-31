@@ -1,0 +1,32 @@
+﻿@model IEnumerable<La3endak.Models.Subject>
+
+@{
+    ViewData["Title"] = "Subjects";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="courses">
+    <h1 class="heading">Our Subjects</h1>
+
+    <div class="box-container">
+        @foreach (var item in Model)
+        {
+            <div class="box">
+
+                <div class="thumb">
+                    @if (!string.IsNullOrEmpty(item.SubjectImage))
+                    {
+                        <img src="@Url.Content("/img/"+ item.SubjectImage)" alt="@item.SubjectName">
+                    }
+                    else
+                    {
+                        <img src="~/img/History_Jordan.jpg" alt="Default Image">
+                    }
+                    <span>10 videos</span>
+                </div>
+                <h3 class="title">@item.SubjectName</h3>
+                <a href="playlist.html" class="inline-btn">View Playlist</a>
+            </div>
+        }
+    </div>
+</section>

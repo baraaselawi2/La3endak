@@ -1,0 +1,174 @@
+﻿@model La3endak.Models.UserAccount
+
+@{
+    ViewData["Title"] = "Delete User";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+<div class="container-fluid cyber-container">
+    <h1 class="cyber-title text-danger">@ViewData["Title"]</h1>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="cyber-card danger">
+                <div class="warning-header">
+                    <i class="bi bi-exclamation-octagon-fill"></i>
+                    <h3 class="warning-text">CONFIRM USER DEletion</h3>
+                </div>
+
+                <div class="image-container mb-4">
+                    @if (!string.IsNullOrEmpty(Model.UserImage))
+                    {
+                        <img src="@Url.Content("~/img/" + Model.UserImage)" class="cyber-image" alt="@Model.UserName" />
+                    }
+                    else
+                    {
+                        <img src="https://via.placeholder.com/800x400" class="cyber-image" alt="No Image" />
+                    }
+                    <div class="scanline"></div>
+                </div>
+
+                <div class="cyber-content">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2 class="user-name text-danger">@Model.UserName</h2>
+                        <div class="role-badge @Model.UserRole.ToLower()">@Model.UserRole</div>
+                    </div>
+
+                    <div class="cyber-stats-grid">
+                        <div class="cyber-stat danger">
+                            <span class="stat-label">Email</span>
+                            <span class="stat-value">@Model.Email</span>
+                        </div>
+                        <div class="cyber-stat danger">
+                            <span class="stat-label">Registered</span>
+                            <span class="stat-value">@Model.CreatedAt.("dd MMM yyyy")</span>
+                        </div>
+                        <div class="cyber-stat danger">
+                            <span class="stat-label">Last Active</span>
+                            <span class="stat-value">@Model.UpdatedAt.("dd MMM yyyy")</span>
+                        </div>
+                    </div>
+
+                    <div class="bio-section danger">
+                        <h3 class="section-title">User Details</h3>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="cyber-stat danger">
+                                    <span class="stat-label">Phone</span>
+                                    <span class="stat-value">@Model.Phone</span>
+                                </div>
+                                <div class="cyber-stat danger">
+                                    <span class="stat-label">Address</span>
+                                    <span class="stat-value">@Model.Address</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="cyber-stat danger">
+                                    <span class="stat-label">Role</span>
+                                    <span class="stat-value">@Model.UserRole</span>
+                                </div>
+                                <div class="cyber-stat danger">
+                                    <span class="stat-label">Location</span>
+                                    <span class="stat-value">@Model.Location</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @if (!string.IsNullOrEmpty(Model.Bio))
+                    {
+                        <div class="bio-section danger">
+                            <h3 class="section-title">Biography</h3>
+                            <p class="bio-content">@Model.Bio</p>
+                        </div>
+                    }
+                </div>
+
+                <form asp-action="Delete" class="danger-actions">
+                    <input type="hidden" asp-for="UserId" />
+                    <div class="actions mt-4">
+                        <button type="submit" class="btn-cyber-danger">
+                            <i class="bi bi-trash3"></i> CONFIRM DELETE
+                        </button>
+                        <a asp-action="Index" class="btn-cyber">
+                            <i class="bi bi-arrow-left"></i> CANCEL
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .danger {
+        border-color: magenta;
+        box-shadow: 0 0 25px rgba(255, 0, 255, 0.3);
+    }
+
+    .warning-header {
+        background: rgba(255, 0, 255, 0.1);
+        padding: 1.5rem;
+        text-align: center;
+        border-bottom: 2px solid magenta;
+        margin-bottom: 2rem;
+    }
+
+    .warning-text {
+        color: magenta;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin: 1rem 0;
+        text-shadow: 0 0 15px magenta;
+    }
+
+    .bi-exclamation-octagon-fill {
+        color: magenta;
+        font-size: 3rem;
+        filter: drop-shadow(0 0 5px magenta);
+    }
+
+    .danger-actions .cyber-stat {
+        border-color: magenta;
+        background: rgba(255, 0, 255, 0.05);
+    }
+
+    .btn-cyber-danger {
+        background: transparent;
+        border: 2px solid magenta;
+        color: magenta;
+        padding: 1rem 2rem;
+        font-family: 'Orbitron', sans-serif;
+        position: relative;
+        overflow: hidden;
+        transition: 0.3s;
+        text-transform: uppercase;
+    }
+
+        .btn-cyber-danger:hover {
+            background: magenta;
+            color: #000;
+            box-shadow: 0 0 25px magenta;
+        }
+
+    .text-danger {
+        color: magenta !important;
+        text-shadow: 0 0 15px rgba(255, 0, 255, 0.4);
+    }
+
+    .danger .stat-label {
+        color: magenta;
+    }
+
+    .danger .stat-value {
+        color: #ff88ff;
+    }
+
+    .danger .section-title::before {
+        background: magenta;
+    }
+
+    .danger .bio-content {
+        color: #ff88ff;
+    }
+</style>

@@ -1,0 +1,130 @@
+﻿@model IEnumerable<La3endak.Models.Order>
+
+@{
+    ViewData["Title"] = "Orders";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+<div class="container-fluid cyber-container">
+    <h1 class="cyber-title">@ViewData["Title"]</h1>
+
+    <div class="row mb-4">
+        <div class="col">
+            <a asp-action="Create" class="btn-cyber">
+                <span>CREATE NEW ORDER</span>
+            </a>
+        </div>
+        <div class="col text-end">
+            <div class="cyber-dropdown">
+                <select id="statusFilter" class="cyber-select">
+                    <option value="">All Statuses</option>
+                    <option value="pending">Pending</option>
+                    <option value="approved">Approved</option>
+                    <option value="completed">Completed</option>
+                    <option value="rejected">Rejected</option>
+                </select>
+                <div class="cyber-arrow"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row gy-4" id="orderList">
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-4 col-md-6 order-card" data-status="@item.Status.ToLower()">
+                <div class="cyber-card">
+                    <div class="cyber-content">
+                        <h3 class="order-title">Order #@item.OrderId</h3>
+                        <div class="status-badge @item.Status.ToLower()">@item.Status</div>
+                        <div class="cyber-stats">
+                            <p><i class="bi bi-calendar"></i> @item.RequestedDate</p>
+                            <p><i class="bi bi-clock"></i> @item.RequestedTime</p>
+                            <p><i class="bi bi-journal-text"></i> @item.AdditionalNotes</p>
+                            <p><i class="bi bi-book"></i> @item.Subject?.SubjectName</p>
+                            <p><i class="bi bi-person"></i> @item.User?.UserName</p>
+                        </div>
+                        <div class="actions">
+                            <a asp-action="Edit" asp-route-id="@item.OrderId" class="btn-cyber-sm">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                            <a asp-action="Details" asp-route-id="@item.OrderId" class="btn-cyber-sm">
+                                <i class="bi bi-eye"></i>
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@item.OrderId" class="btn-cyber-sm danger">
+                                <i class="bi bi-trash3"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    /* Status Badges */
+    .status-badge {
+        display: inline-block;
+        padding: 0.25rem 1rem;
+        border-radius: 15px;
+        font-size: 0.8rem;
+        margin-bottom: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+        .status-badge.pending {
+            background: rgba(255, 255, 0, 0.2);
+            border: 1px solid #ff0;
+            color: #ff0;
+        }
+
+        .status-badge.approved {
+            background: rgba(0, 255, 0, 0.2);
+            border: 1px solid #0f0;
+            color: #0f0;
+        }
+
+        .status-badge.completed {
+            background: rgba(0, 255, 255, 0.2);
+            border: 1px solid #0ff;
+            color: #0ff;
+        }
+
+        .status-badge.rejected {
+            background: rgba(255, 0, 0, 0.2);
+            border: 1px solid #f00;
+            color: #f00;
+        }
+
+    .order-title {
+        color: #0ff;
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+        text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+    }
+
+    .cyber-stats p {
+        white-space: normal;
+        overflow: visible;
+        text-overflow: clip;
+    }
+</style>
+
+@section Scripts {
+    <script>
+        document.getElementById('statusFilter').addEventListener('change', function () {
+            const selectedStatus = this.value.toLowerCase();
+            const orderCards = document.querySelectorAll('.order-card');
+
+            orderCards.forEach(card => {
+                const cardStatus = card.getAttribute('data-status');
+                if (selectedStatus === '' || cardStatus === selectedStatus) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    </script>
+}

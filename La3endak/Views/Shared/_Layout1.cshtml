@@ -1,0 +1,178 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>La3endak Admin</title>
+
+    <!-- Required Assets -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+   
+
+    <!-- Admin Assets -->
+    <link rel="stylesheet" href="~/AdminAssets/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="~/AdminAssets/css/vertical-layout-light/style.css">
+    <link rel="shortcut icon" href="~/AdminAssets/images/favicon.png" />
+</head>
+
+<body>
+    <div class="container-scroller">
+        <!-- Main Content -->
+        <div class="container-fluid page-body-wrapper">
+            <!-- Sidebar -->
+            <nav class="sidebar sidebar-offcanvas" id="sidebar">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "Admin")">
+                            <i class="bi bi-speedometer2"></i>
+                            <span class="menu-title">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "Subjects")">
+                            <i class="bi bi-journal-bookmark"></i>
+                            <span class="menu-title">Subject</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "UserAccounts")">
+                            <i class="bi bi-people-fill"></i>
+                            <span class="menu-title">Users</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "ContactUs")">
+                            <i class="bi bi-envelope"></i>
+                            <span class="menu-title">Contact</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "Orders")">
+                            <i class="bi bi-cart-check"></i>
+                            <span class="menu-title">Order</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "Creditcards")">
+                            <i class="bi bi-credit-card-2-front"></i>
+                            <span class="menu-title">Payments</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "Testimonials")">
+                            <i class="bi bi-chat-square-quote"></i>
+                            <span class="menu-title">Testimonials</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "AboutUs")">
+                            <i class="bi bi-building"></i>
+                            <span class="menu-title">About</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "EducationLevels")">
+                            <i class="bi bi-mortarboard"></i>
+                            <span class="menu-title">EducationLevels</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Profile", "Admin")">
+                            <i class="bi bi-person-circle"></i>
+                            <span class="menu-title">Profile</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <!-- Logout -->
+                <div class="logout-btn mt-auto p-3">
+                    <form asp-controller="LogReg" asp-action="Logout" method="post">
+                        <button type="submit" class="btn btn-block cyber-logout-btn">
+                            <i class="bi bi-box-arrow-right"></i> Logout
+                        </button>
+                    </form>
+                </div>
+            </nav>
+
+            <!-- Main Content Area -->
+            <div class="main-panel">
+                <div class="content-wrapper cyber-admin-content">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="~/AdminAssets/vendors/js/vendor.bundle.base.js"></script>
+    <script src="~/AdminAssets/js/off-canvas.js"></script>
+    <script src="~/AdminAssets/js/hoverable-collapse.js"></script>
+    <script src="~/AdminAssets/js/template.js"></script>
+
+    <style>
+        /* Cyberpunk Admin Theme */
+        body {
+            background: #0a0a12;
+            color: #fff;
+        }
+
+        .cyber-admin-content {
+            background: transparent;
+            padding: 2rem;
+        }
+
+        #sidebar {
+            background: rgba(16, 16, 32, 0.95);
+            border-right: 2px solid #0ff;
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.1);
+        }
+
+        .nav-link {
+            color: #8af !important;
+            transition: all 0.3s ease;
+        }
+
+            .nav-link:hover {
+                background: rgba(0, 255, 255, 0.1) !important;
+                transform: translateX(5px);
+            }
+
+            .nav-link.active {
+                background: #0ff !important;
+                color: #000 !important;
+                box-shadow: 0 0 15px #0ff;
+            }
+
+        .menu-title {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .cyber-logout-btn {
+            background: transparent;
+            border: 2px solid magenta;
+            color: magenta;
+            transition: all 0.3s ease;
+        }
+
+            .cyber-logout-btn:hover {
+                background: magenta;
+                color: #000;
+                box-shadow: 0 0 20px magenta;
+            }
+
+        /* Responsive Adjustments */
+        @@media (max-width: 991px) {
+            #sidebar {
+                margin-left: -250px;
+            }
+
+            .page-body-wrapper {
+                padding-top: 60px;
+            }
+        }
+    </style>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

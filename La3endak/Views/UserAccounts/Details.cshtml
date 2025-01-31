@@ -1,0 +1,192 @@
+﻿@model La3endak.Models.UserAccount
+
+@{
+    ViewData["Title"] = "User Details";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+<div class="container-fluid cyber-container">
+    <h1 class="cyber-title">@ViewData["Title"]</h1>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="cyber-card">
+                <div class="image-container mb-4">
+                    @if (!string.IsNullOrEmpty(Model.UserImage))
+                    {
+                        <img src="@Url.Content("~/img/" + Model.UserImage)" class="cyber-image" alt="@Model.UserName" />
+                    }
+                    else
+                    {
+                        <img src="https://via.placeholder.com/800x400" class="cyber-image" alt="No Image" />
+                    }
+                    <div class="scanline"></div>
+                </div>
+
+                <div class="cyber-content">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2 class="user-name">@Model.UserName</h2>
+                        <div class="role-badge @Model.UserRole.ToLower()">@Model.UserRole</div>
+                    </div>
+
+                    <div class="cyber-stats-grid">
+                        <div class="cyber-stat">
+                            <span class="stat-label">Email</span>
+                            <span class="stat-value">@Model.Email</span>
+                        </div>
+                        <div class="cyber-stat">
+                            <span class="stat-label">Phone</span>
+                            <span class="stat-value">@Model.Phone</span>
+                        </div>
+                        <div class="cyber-stat">
+                            <span class="stat-label">Address</span>
+                            <span class="stat-value">@Model.Address</span>
+                        </div>
+                        <div class="cyber-stat">
+                            <span class="stat-label">Location</span>
+                            <span class="stat-value">@Model.Location</span>
+                        </div>
+                        <div class="cyber-stat">
+                            <span class="stat-label">Member Since</span>
+                            <span class="stat-value">@Model.CreatedAt.("dd MMM yyyy")</span>
+                        </div>
+                        <div class="cyber-stat">
+                            <span class="stat-label">Last Updated</span>
+                            <span class="stat-value">@Model.UpdatedAt.("dd MMM yyyy")</span>
+                        </div>
+                    </div>
+
+                    <div class="bio-section">
+                        <h3 class="section-title">Biography</h3>
+                        <p class="bio-content">@Model.Bio</p>
+                    </div>
+
+                    @if (Model.UserRole == "Teacher")
+                    {
+                        <div class="specialization-grid">
+                            <div class="cyber-stat">
+                                <span class="stat-label">Subject</span>
+                                <span class="stat-value">@Model.TeacherSubject</span>
+                            </div>
+                            <div class="cyber-stat">
+                                <span class="stat-label">Experience</span>
+                                <span class="stat-value">@Model.Experience years</span>
+                            </div>
+                            <div class="cyber-stat">
+                                <span class="stat-label">Hourly Rate</span>
+                                <span class="stat-value">$@Model.HourlyRate</span>
+                            </div>
+                        </div>
+                    }
+
+                    @if (Model.UserRole == "Student")
+                    {
+                        <div class="specialization-grid">
+                            <div class="cyber-stat">
+                                <span class="stat-label">Class</span>
+                                <span class="stat-value">@Model.StudentClass</span>
+                            </div>
+                            <div class="cyber-stat">
+                                <span class="stat-label">Preferred Subject</span>
+                                <span class="stat-value">@Model.PreferredSubject</span>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <div class="actions mt-4">
+                    <a asp-action="Edit" asp-route-id="@Model.UserId" class="btn-cyber">
+                        <i class="bi bi-pencil-square"></i> Edit Profile
+                    </a>
+                    <a asp-action="Index" class="btn-cyber ml-3">
+                        <i class="bi bi-arrow-left"></i> Back to List
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .cyber-stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .cyber-stat {
+        background: rgba(16, 16, 32, 0.8);
+        border: 1px solid #0ff;
+        padding: 1rem;
+        border-radius: 8px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .stat-label {
+        display: block;
+        color: #0ff;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 0.5rem;
+    }
+
+    .stat-value {
+        color: #8af;
+        font-size: 1.1rem;
+        word-break: break-word;
+    }
+
+    .bio-section {
+        margin: 2rem 0;
+        padding: 1.5rem;
+        border: 1px solid rgba(0, 255, 255, 0.3);
+        border-radius: 8px;
+    }
+
+    .section-title {
+        color: #0ff;
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+        position: relative;
+        padding-left: 1rem;
+    }
+
+        .section-title::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 70%;
+            background: #0ff;
+        }
+
+    .bio-content {
+        color: #8af;
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    .specialization-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin: 2rem 0;
+    }
+
+    .actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 1rem;
+        border-top: 1px solid rgba(0, 255, 255, 0.2);
+        padding-top: 2rem;
+    }
+
+    .ml-3 {
+        margin-left: 1rem;
+    }
+</style>

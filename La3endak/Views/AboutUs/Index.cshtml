@@ -1,0 +1,40 @@
+﻿@model IEnumerable<La3endak.Models.AboutU>
+
+
+
+<h1 style="text-align: center; color: #333; font-family: Arial, sans-serif;">Index</h1>
+
+<p>
+    <a asp-action="Create" style="background-color: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Create New</a>
+</p>
+
+<table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+    <thead>
+        <tr style="background-color: #f2f2f2;">
+            <th style="padding: 12px; text-align: left; border-bottom: 1px solid #ddd;">
+                @Html.DisplayNameFor(model => model.Txt)
+            </th>
+            <th style="padding: 12px; text-align: left; border-bottom: 1px solid #ddd;">
+                @Html.DisplayNameFor(model => model.ImagePath)
+            </th>
+            <th style="padding: 12px; text-align: left; border-bottom: 1px solid #ddd;">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr style="border-bottom: 1px solid #ddd;">
+            <td style="padding: 12px;">
+                @Html.DisplayFor(modelItem => item.Txt)
+            </td>
+            <td style="padding: 12px;">
+                @Html.DisplayFor(modelItem => item.ImagePath)
+            </td>
+            <td style="padding: 12px;">
+                <a asp-action="Edit" asp-route-id="@item.AboutId" style="color: #4CAF50; text-decoration: none; margin-right: 10px;">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.AboutId" style="color: #2196F3; text-decoration: none; margin-right: 10px;">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.AboutId" style="color: #f44336; text-decoration: none;">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,157 @@
+﻿@model La3endak.Models.UserAccount
+
+@{
+    ViewData["Title"] = "Edit User";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+<div class="container-fluid cyber-container">
+    <h1 class="cyber-title">@ViewData["Title"]</h1>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="cyber-card">
+                <form asp-action="Edit" enctype="multipart/form-data" class="cyber-form">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="UserId" />
+
+                    <div class="row gy-4">
+                        <div class="col-md-6">
+                            <div class="form-group cyber-input">
+                                <label asp-for="UserName" class="cyber-label"></label>
+                                <input asp-for="UserName" class="form-control cyber-control" />
+                                <span asp-validation-for="UserName" class="text-danger cyber-validation"></span>
+                            </div>
+
+                            <div class="form-group cyber-input">
+                                <label asp-for="Email" class="cyber-label"></label>
+                                <input asp-for="Email" class="form-control cyber-control" />
+                                <span asp-validation-for="Email" class="text-danger cyber-validation"></span>
+                            </div>
+
+                            <div class="form-group cyber-input">
+                                <label asp-for="Phone" class="cyber-label"></label>
+                                <input asp-for="Phone" class="form-control cyber-control" />
+                                <span asp-validation-for="Phone" class="text-danger cyber-validation"></span>
+                            </div>
+
+                            <div class="form-group cyber-input">
+                                <label asp-for="Password" class="cyber-label"></label>
+                                <input asp-for="Password" class="form-control cyber-control" />
+                                <span asp-validation-for="Password" class="text-danger cyber-validation"></span>
+                            </div>
+
+                            <div class="form-group cyber-input">
+                                <label asp-for="Address" class="cyber-label"></label>
+                                <input asp-for="Address" class="form-control cyber-control" />
+                                <span asp-validation-for="Address" class="text-danger cyber-validation"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group cyber-input">
+                                <label asp-for="UserRole" class="cyber-label"></label>
+                                <select asp-for="UserRole" class="form-control cyber-control">
+                                    <option value="Admin">Admin</option>
+                                    <option value="User">User</option>
+                                </select>
+                                <span asp-validation-for="UserRole" class="text-danger cyber-validation"></span>
+                            </div>
+
+                            <div class="form-group cyber-input">
+                                <label asp-for="Bio" class="cyber-label"></label>
+                                <textarea asp-for="Bio" class="form-control cyber-control" rows="3"></textarea>
+                                <span asp-validation-for="Bio" class="text-danger cyber-validation"></span>
+                            </div>
+
+                            <div class="form-group cyber-input">
+                                <label asp-for="ImageFile" class="cyber-label">Profile Image</label>
+                                <div class="custom-file">
+                                    <input type="file" asp-for="ImageFile" class="custom-file-input cyber-control" />
+                                    <label class="custom-file-label cyber-control">Choose file</label>
+                                </div>
+                                <span asp-validation-for="ImageFile" class="text-danger cyber-validation"></span>
+                            </div>
+
+                            <div class="form-group cyber-input">
+                                <label asp-for="Location" class="cyber-label"></label>
+                                <input asp-for="Location" class="form-control cyber-control" />
+                                <span asp-validation-for="Location" class="text-danger cyber-validation"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-4 d-flex justify-content-between">
+                        <a asp-action="Index" class="btn-cyber-sm">
+                            <i class="bi bi-arrow-left"></i> Back to List
+                        </a>
+                        <button type="submit" class="btn-cyber">
+                            <i class="bi bi-save"></i> Save Changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .cyber-form {
+        padding: 2rem;
+    }
+
+    .cyber-input {
+        margin-bottom: 1.5rem;
+        position: relative;
+    }
+
+    .cyber-label {
+        color: #0ff;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 0.5rem;
+        display: block;
+    }
+
+    .cyber-control {
+        background: rgba(16, 16, 32, 0.9);
+        border: 1px solid #0ff;
+        color: #8af;
+        border-radius: 4px;
+        padding: 0.75rem 1rem;
+        transition: all 0.3s ease;
+    }
+
+        .cyber-control:focus {
+            background: rgba(0, 255, 255, 0.1);
+            border-color: magenta;
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.3);
+            color: #fff;
+        }
+
+    .custom-file-label {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        cursor: pointer;
+    }
+
+    .cyber-validation {
+        display: block;
+        margin-top: 0.25rem;
+        font-size: 0.8rem;
+        color: magenta;
+        text-shadow: 0 0 5px rgba(255, 0, 255, 0.3);
+    }
+
+    .bi-arrow-left {
+        margin-right: 0.5rem;
+    }
+</style>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

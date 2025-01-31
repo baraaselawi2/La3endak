@@ -1,0 +1,329 @@
+﻿@model La3endak.Models.UserAccount
+@{
+    ViewData["Title"] = "Admin DashBoard Percentage";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+<div class="cyber-admin-container">
+    <!-- Stats Cards -->
+    <div class="row neon-glow">
+        <div class="col-md-3 grid-margin">
+            <div class="card cyber-card gradient-purple">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="icon-bubble">
+                            <i class="bi bi-people-fill h2"></i>
+                        </div>
+                        <div class="text-end">
+                            <h2 class="cyber-text">@ViewBag.NumberOfUser </h2>
+                            <p class="mb-0">Total Users</p>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="miniChart1" class="mini-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 grid-margin">
+            <div class="card cyber-card gradient-blue">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="icon-bubble">
+                            <i class="bi bi-cart-check-fill h2"></i>
+                        </div>
+                        <div class="text-end">
+                            <h2 class="cyber-text">@ViewBag.NumberOfOrder</h2>
+                            <p class="mb-0">Total Orders</p>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="miniChart2" class="mini-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 grid-margin">
+            <div class="card cyber-card gradient-green">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="icon-bubble">
+                            <i class="bi bi-person-gear h2"></i>
+                        </div>
+                        <div class="text-end">
+                            <h2 class="cyber-text">@ViewBag.NumberOfTeacher</h2>
+                            <p class="mb-0">Total Teachers</p>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="miniChart3" class="mini-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 grid-margin">
+            <div class="card cyber-card gradient-orange">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="icon-bubble">
+                            <i class="bi bi-hourglass-split h2"></i>
+                        </div>
+                        <div class="text-end">
+                            <h2 class="cyber-text">@ViewBag.NumberOfPendingOrder</h2>
+                            <p class="mb-0">Pending Orders</p>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="miniChart4" class="mini-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row neon-glow mt-4">
+        <div class="col-md-3 grid-margin">
+            <div class="card cyber-card gradient-pink">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="icon-bubble">
+                            <i class="bi bi-check-circle-fill h2"></i>
+                        </div>
+                        <div class="text-end">
+                            <h2 class="cyber-text">@ViewBag.NumberOfapprovedOrder</h2>
+                            <p class="mb-0">Approved Orders</p>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="miniChart5" class="mini-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 grid-margin">
+            <div class="card cyber-card gradient-yellow">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="icon-bubble">
+                            <i class="bi bi-chat-square-text-fill h 2"></i>
+                        </div>
+                        <div class="text-end">
+                            <h2 class="cyber-text">@ViewBag.NumberOfReview</h2>
+                            <p class="mb-0">Total Reviews</p>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="miniChart6" class="mini-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Charts Section -->
+    <div class="row mt-4">
+        <div class="col-md-8 grid-margin">
+            <div class="card cyber-card gradient-blue">
+                <div class="card-body">
+                    <h4 class="card-title cyber-title">Order Analytics</h4>
+                    <canvas id="orderTrendChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 grid-margin">
+            <div class="card cyber-card gradient-pink">
+                <div class="card-body">
+                    <h4 class="card-title cyber-title">User  Distribution</h4>
+                    <canvas id="userPieChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Additional Visualizations -->
+    <div class="row mt-4">
+        <div class="col-md-6 grid-margin">
+            <div class="card cyber-card gradient-green">
+                <div class="card-body">
+                    <h4 class="card-title cyber-title">Order Status</h4>
+                    <canvas id="statusDoughnutChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .cyber-admin-container {
+        background: linear-gradient(45deg, #0a0a1f, #1a1a2f);
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 0 30px rgba(0, 255, 255, 0.1);
+    }
+
+    .cyber-card {
+        border: 2px solid #0ff;
+        border-radius: 15px;
+        background: rgba(16, 16, 32, 0.9);
+        backdrop-filter: blur(10px);
+        transition: transform 0.3s ease;
+    }
+
+        .cyber-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.3);
+        }
+
+    .cyber-title {
+        font-family: 'Orbitron', sans-serif;
+        color: #0ff;
+        text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+    }
+
+    .gradient-purple {
+        background: linear-gradient(45deg, #6a00ff, #8a2be2);
+    }
+
+    .gradient-blue {
+        background: linear-gradient(45deg, #001aff, #00b4ff);
+    }
+
+    .gradient-green {
+        background: linear-gradient(45deg, #00ff00, #00cc00);
+    }
+
+    .gradient-orange {
+        background: linear-gradient(45deg, #ff5500, #ff9900);
+    }
+
+    .gradient-pink {
+        background: linear-gradient(45deg, #ff00ff, #cc00cc);
+    }
+
+    .gradient-yellow {
+        background: linear-gradient(45deg, #ffff00, #ffcc00);
+    }
+
+    .icon-bubble {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        padding: 15px;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .neon-glow {
+        border-bottom: 2px solid #0ff;
+        box-shadow: 0 10px 20px rgba(0, 255, 255, 0.1);
+        padding-bottom: 20px;
+        margin-bottom: 30px;
+    }
+</style>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Order Trend Chart (Line)
+        new Chart(document.getElementById('orderTrendChart'), {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'Orders',
+                    data: [12, 19, 3, 5, 2, 3],
+                    borderColor: '#00ffff',
+                    borderWidth: 2,
+                    tension: 0.4,
+                    pointBackgroundColor: '#00ffff',
+                    pointRadius: 5,
+                    fill: true,
+                    backgroundColor: 'rgba(0, 255, 255, 0.1)'
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#fff'
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                        ticks: { color: '#fff' }
+                    },
+                    x: {
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                        ticks: { color: '#fff' }
+                    }
+                }
+            }
+        });
+
+        // User Distribution Chart (Pie)
+        new Chart(document.getElementById('userPieChart'), {
+            type: 'pie',
+            data: {
+                labels: ['Students', 'Teachers', 'Admins'],
+                datasets: [{
+                    data: [300, 50, 100],
+                    backgroundColor: [
+                        '#ff00ff',
+                        '#00ffff',
+                        '#ff5500'
+                    ],
+                    borderColor: '#000',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: '#fff'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Status Doughnut Chart
+        new Chart(document.getElementById('statusDoughnutChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Pending', 'Approved', 'Rejected'],
+                datasets: [{
+                    data: [@ViewBag.NumberOfTeacher, @ViewBag.NumberOfOrder, 5],
+                    backgroundColor: [
+                        '#ff00ff',
+                        '#00ff00',
+                        '#ff0000'
+                    ],
+                    borderColor: '#000',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                cutout: '70%',
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#fff'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+}
