@@ -1,0 +1,120 @@
+﻿@model IEnumerable<La3endak.Models.Testimonial>
+@{
+    ViewData["Title"] = "Testimonials";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="le-hero-section">
+    <div class="le-hero-content">
+        <h1 class="le-hero-title">Student Testimonials</h1>
+        <p class="le-hero-subtitle">Hear From Our Learning Community</p>
+    </div>
+</div>
+
+<div class="le-testimonials-container">
+    <div class="le-testimonials-grid">
+        @foreach (var testimonial in Model)
+        {
+            <div class="le-testimonial-card">
+                <div class="le-testimonial-header">
+                    <div class="le-user-info">
+                        <h4 class="le-user-name">@testimonial.User?.UserName</h4>
+                        <div class="le-rating">
+                            @for (int i = 0; i < testimonial.Rating; i++)
+                            {
+                                <span class="le-star">★</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="le-testimonial-body">
+                    <p class="le-testimonial-text">"@testimonial.Text"</p>
+                </div>
+                <div class="le-testimonial-footer">
+                    <span class="le-testimonial-date">
+                        @testimonial.CreatedDate
+                    </span>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .le-testimonials-container {
+        padding: 4rem 5%;
+        background: var(--light-blue);
+    }
+
+    .le-testimonials-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .le-testimonial-card {
+        background: white;
+        border-radius: 0.75rem;
+        padding: 2rem;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        transition: transform 0.3s ease;
+    }
+
+        .le-testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(42,92,130,0.1);
+        }
+
+    .le-testimonial-header {
+        margin-bottom: 1.5rem;
+    }
+
+    .le-user-info {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .le-user-name {
+        color: var(--dark-blue);
+        font-family: 'Playfair Display', serif;
+        margin: 0;
+    }
+
+    .le-rating {
+        color: #FFD700;
+        font-size: 1.2rem;
+    }
+
+    .le-testimonial-text {
+        color: var(--text-dark);
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+    }
+
+    .le-testimonial-footer {
+        border-top: 1px solid var(--light-blue);
+        padding-top: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .le-testimonial-date {
+        color: var(--primary-blue);
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+
+    @@media (max-width: 768px) {
+        .le-testimonials-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .le-testimonial-card {
+            padding: 1.5rem;
+        }
+    }
+</style>

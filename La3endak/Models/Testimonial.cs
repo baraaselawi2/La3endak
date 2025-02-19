@@ -18,4 +18,5 @@ public partial class Testimonial
     public DateTime? CreatedTime { get; set; }
 
     public virtual UserAccount? User { get; set; }
+
 }

@@ -1,0 +1,154 @@
+﻿@{
+    ViewData["Title"] = "Our Services";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .le-services-container {
+        padding: 4rem 5%;
+        background: var(--light-blue);
+    }
+
+    .le-services-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .le-services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .le-service-card {
+        background: white;
+        border-radius: 0.75rem;
+        padding: 2rem;
+        text-align: center;
+        transition: transform 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        border: 1px solid var(--light-blue);
+        min-height: 300px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+        .le-service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(42,92,130,0.1);
+        }
+
+    .le-service-icon {
+        width: 80px;
+        height: 80px;
+        object-fit: contain;
+        margin-bottom: 1.5rem;
+        padding: 1rem;
+        background: var(--light-blue);
+        border-radius: 50%;
+    }
+
+    .le-service-title {
+        color: var(--dark-blue);
+        font-family: 'Playfair Display', serif;
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+    }
+
+    .le-service-description {
+        color: var(--text-dark);
+        line-height: 1.6;
+        font-size: 0.95rem;
+    }
+
+    @@media (max-width: 768px) {
+        .le-services-grid {
+            grid-template-columns: 1fr;
+            padding: 0 1rem;
+        }
+
+        .le-service-card {
+            min-height: 250px;
+            padding: 1.5rem;
+        }
+    }
+</style>
+
+<div class="le-hero-section">
+    <div class="le-hero-content">
+        <h1 class="le-hero-title">Academic Services</h1>
+        <p class="le-hero-subtitle">Comprehensive Learning Solutions for Academic Success</p>
+    </div>
+</div>
+
+<div class="le-services-container">
+    <div class="le-services-grid">
+        <a href="subjects/computer_courses.html" class="le-service-link">
+            <div class="le-service-card">
+                <img class="le-service-icon" src="~/images/computer-courses.png" alt="Computer Courses">
+                <h3 class="le-service-title">Digital Literacy Programs</h3>
+                <p class="le-service-description">Comprehensive computer science curriculum with certification programs</p>
+            </div>
+        </a>
+
+        <a href="subjects/jee.html" class="le-service-link">
+            <div class="le-service-card">
+                <img class="le-service-icon" src="~/images/brainbooster.png" alt="Exam Preparation">
+                <h3 class="le-service-title">Exam Preparation</h3>
+                <p class="le-service-description">Structured programs for competitive exams and university admissions</p>
+            </div>
+        </a>
+
+        <a href="#" class="le-service-link">
+            <div class="le-service-card">
+                <img class="le-service-icon" src="~/images/online-tutorials.png" alt="Lectures">
+                <h3 class="le-service-title">Lecture Series</h3>
+                <p class="le-service-description">Recorded and live lectures from top academic professionals</p>
+            </div>
+        </a>
+
+        <a href="subjects/jee.html#sample_papers" class="le-service-link">
+            <div class="le-service-card">
+                <img class="le-service-icon" src="~/images/papers.jpg" alt="Resources">
+                <h3 class="le-service-title">Academic Resources</h3>
+                <p class="le-service-description">Curated collection of sample papers and study materials</p>
+            </div>
+        </a>
+
+        <a href="#" class="le-service-link">
+            <div class="le-service-card">
+                <img class="le-service-icon" src="~/images/p3.png" alt="Analytics">
+                <h3 class="le-service-title">Performance Analytics</h3>
+                <p class="le-service-description">Detailed progress tracking and personalized feedback reports</p>
+            </div>
+        </a>
+
+        <a href="#contactus_section" class="le-service-link">
+            <div class="le-service-card">
+                <img class="le-service-icon" src="~/images/discussion.png" alt="Mentorship">
+                <h3 class="le-service-title">Academic Mentorship</h3>
+                <p class="le-service-description">One-on-one sessions with subject matter experts</p>
+            </div>
+        </a>
+
+        <a href="subjects/quiz.html" class="le-service-link">
+            <div class="le-service-card">
+                <img class="le-service-icon" src="~/images/q1.png" alt="Learning Tools">
+                <h3 class="le-service-title">Learning Enhancers</h3>
+                <p class="le-service-description">Interactive quizzes and critical thinking exercises</p>
+            </div>
+        </a>
+
+        <a href="#contactus_section" class="le-service-link">
+            <div class="le-service-card">
+                <img class="le-service-icon" src="~/images/help.png" alt="Support">
+                <h3 class="le-service-title">Academic Support</h3>
+                <p class="le-service-description">24/7 access to our student success team</p>
+            </div>
+        </a>
+    </div>
+</div>

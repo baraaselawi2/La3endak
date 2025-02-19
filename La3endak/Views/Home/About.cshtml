@@ -1,0 +1,201 @@
+﻿@model IEnumerable<La3endak.Models.AboutU>
+@{
+    ViewData["Title"] = "About";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="le-hero-section">
+    <div class="le-hero-content">
+        <h1 class="le-hero-title">About ScholarMind Academy</h1>
+        <p class="le-hero-subtitle">Empowering Lifelong Learning Through Innovative Education</p>
+    </div>
+</div>
+
+<div class="le-about-container">
+    <div class="le-about-grid">
+        <!-- Image Section -->
+        <div class="le-about-image-section">
+            <div class="le-about-image-container">
+                <img src="~/images/e3.jpg" class="le-about-main-image" alt="Academic Community">
+                <div class="le-about-badge">
+                    <i class="bi bi-award"></i>
+                    Accredited Learning Institution
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Section -->
+        <div class="le-about-content-section">
+            <div class="le-about-card">
+                <h3 class="le-about-card-title">
+                    <i class="bi bi-building-columns"></i>
+                    Our Institution
+                </h3>
+                <div class="le-about-card-content">
+                    <p class="le-about-description">
+                        ScholarMind Academy is a premier online learning platform committed to academic excellence.
+                        We combine traditional educational values with cutting-edge technology to create transformative
+                        learning experiences for students worldwide.
+                    </p>
+                </div>
+            </div>
+
+            <div class="le-about-card">
+                <h3 class="le-about-card-title">
+                    <i class="bi bi-lightbulb"></i>
+                    Academic Innovation
+                </h3>
+                <div class="le-about-card-content">
+                    <p class="le-about-description">
+                        Our platform integrates advanced learning technologies including AI-driven personalization,
+                        interactive simulations, and collaborative virtual classrooms. We maintain rigorous academic
+                        standards while embracing pedagogical innovation.
+                    </p>
+                </div>
+            </div>
+
+            <div class="le-about-card">
+                <h3 class="le-about-card-title">
+                    <i class="bi bi-compass"></i>
+                    Academic Mission
+                </h3>
+                <div class="le-about-info-grid">
+                    <div class="le-about-info-item">
+                        <span class="le-about-info-label">Founded:</span>
+                        <span class="le-about-info-value">2023</span>
+                    </div>
+                    <div class="le-about-info-item">
+                        <span class="le-about-info-label">Students:</span>
+                        <span class="le-about-info-value">10,000+</span>
+                    </div>
+                    <div class="le-about-info-item">
+                        <span class="le-about-info-label">Courses:</span>
+                        <span class="le-about-info-value">200+</span>
+                    </div>
+                    <div class="le-about-info-item">
+                        <span class="le-about-info-label">Faculty:</span>
+                        <span class="le-about-info-value">150+ Experts</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .le-about-container {
+        padding: 4rem 5%;
+        background: var(--light-blue);
+    }
+
+    .le-about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .le-about-image-container {
+        border-radius: 1rem;
+        overflow: hidden;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        position: relative;
+        height: 600px;
+    }
+
+    .le-about-main-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .le-about-badge {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        background: var(--accent-gold);
+        color: var(--dark-blue);
+        padding: 0.8rem 1.5rem;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .le-about-card {
+        background: white;
+        border-radius: 0.75rem;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        border-left: 4px solid var(--primary-blue);
+    }
+
+    .le-about-card-title {
+        color: var(--dark-blue);
+        font-family: 'Playfair Display', serif;
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+        .le-about-card-title i {
+            color: var(--accent-gold);
+            font-size: 1.8rem;
+        }
+
+    .le-about-description {
+        color: var(--text-dark);
+        line-height: 1.8;
+        margin-bottom: 1rem;
+    }
+
+    .le-about-info-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+
+    .le-about-info-item {
+        background: var(--light-blue);
+        padding: 1.2rem;
+        border-radius: 0.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .le-about-info-label {
+        color: var(--primary-blue);
+        font-weight: 500;
+    }
+
+    .le-about-info-value {
+        color: var(--dark-blue);
+        font-weight: 600;
+    }
+
+    @@media (max-width: 992px) {
+        .le-about-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .le-about-image-container {
+            height: 400px;
+        }
+    }
+
+    @@media (max-width: 768px) {
+        .le-about-info-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .le-about-card {
+            padding: 1.5rem;
+        }
+    }
+</style>

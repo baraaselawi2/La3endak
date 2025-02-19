@@ -1,0 +1,294 @@
+﻿@model La3endak.Models.UserAccount
+@{
+    ViewData["Title"] = "User Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="le-profile-container">
+    <div class="le-profile-header">
+        <div class="le-profile-title">
+            <h1 class="le-academic-title">@Model.UserName</h1>
+            <div class="le-role-badge">@Model.UserRole</div>
+        </div>
+    </div>
+
+    <div class="le-profile-grid">
+        <!-- Profile Sidebar -->
+        <div class="le-profile-sidebar">
+            <div class="le-profile-image">
+                @if (!string.IsNullOrEmpty(Model.UserImage))
+                {
+                    <img src="~/img/@Model.UserImage" alt="Profile Image">
+                }
+                else
+                {
+                    <div class="le-profile-image-placeholder">
+                        <i class="bi bi-person-circle"></i>
+                    </div>
+                }
+            </div>
+
+            <div class="le-profile-meta">
+                <div class="le-meta-item">
+                    <i class="bi bi-mortarboard"></i>
+                    <div class="le-meta-content">
+                        <span>Student Since</span>
+                        <strong>@Model.CreatedAt?.ToString("yyyy")</strong>
+                    </div>
+                </div>
+                <div class="le-meta-item">
+                    <i class="bi bi-journal-bookmark"></i>
+                    <div class="le-meta-content">
+                        <span>Current Class</span>
+                        <strong>@Model.StudentClass</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Profile Content -->
+        <div class="le-profile-content">
+            <div class="le-profile-section">
+                <h3 class="le-section-title">
+                    <i class="bi bi-person-badge"></i>
+                    Academic Profile
+                </h3>
+                <div class="le-info-grid">
+                    <div class="le-info-item">
+                        <span class="le-info-label">Full Name</span>
+                        <span class="le-info-value">@Model.UserName</span>
+                    </div>
+                    <div class="le-info-item">
+                        <span class="le-info-label">Email Address</span>
+                        <span class="le-info-value">@Model.Email</span>
+                    </div>
+                    <div class="le-info-item">
+                        <span class="le-info-label">Academic Level</span>
+                        <span class="le-info-value">@Model.StudentClass</span>
+                    </div>
+                    <div class="le-info-item">
+                        <span class="le-info-label">Primary Subject</span>
+                        <span class="le-info-value">@Model.PreferredSubject</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="le-profile-section">
+                <h3 class="le-section-title">
+                    <i class="bi bi-geo-alt"></i>
+                    Contact Information
+                </h3>
+                <div class="le-info-grid">
+                    <div class="le-info-item">
+                        <span class="le-info-label">Phone Number</span>
+                        <span class="le-info-value">@Model.Phone</span>
+                    </div>
+                    <div class="le-info-item">
+                        <span class="le-info-label">Mailing Address</span>
+                        <span class="le-info-value">@Model.Address</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="le-profile-section">
+                <h3 class="le-section-title">
+                    <i class="bi bi-file-text"></i>
+                    Academic Bio
+                </h3>
+                <div class="le-bio-content">
+                    @Model.Bio
+                </div>
+            </div>
+
+            <div class="le-profile-actions">
+                <a asp-controller="UserAccounts" asp-action="Edit" asp-route-id="@Model.UserId"
+                   class="le-academic-btn">
+                    <i class="bi bi-pencil-square"></i>
+                    Edit Academic Profile
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .le-profile-container {
+        padding: 4rem 5%;
+        background: var(--light-blue);
+        min-height: 100vh;
+    }
+
+    .le-profile-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .le-academic-title {
+        color: var(--dark-blue);
+        font-family: 'Playfair Display', serif;
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .le-role-badge {
+        background: var(--accent-gold);
+        color: var(--dark-blue);
+        padding: 0.5rem 1.5rem;
+        border-radius: 2rem;
+        display: inline-block;
+        font-weight: 600;
+        font-size: 0.9rem;
+    }
+
+    .le-profile-grid {
+        display: grid;
+        grid-template-columns: 300px 1fr;
+        gap: 3rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .le-profile-sidebar {
+        background: white;
+        border-radius: 1rem;
+        padding: 2rem;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        height: fit-content;
+    }
+
+    .le-profile-image {
+        width: 100%;
+        height: 300px;
+        border-radius: 0.75rem;
+        overflow: hidden;
+        margin-bottom: 2rem;
+    }
+
+        .le-profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+    .le-profile-image-placeholder {
+        width: 100%;
+        height: 300px;
+        background: var(--light-blue);
+        display: grid;
+        place-items: center;
+        font-size: 5rem;
+        color: var(--primary-blue);
+    }
+
+    .le-profile-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .le-meta-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem;
+        background: var(--light-blue);
+        border-radius: 0.5rem;
+    }
+
+        .le-meta-item i {
+            font-size: 1.5rem;
+            color: var(--primary-blue);
+        }
+
+    .le-meta-content {
+        display: flex;
+        flex-direction: column;
+    }
+
+        .le-meta-content span {
+            font-size: 0.9rem;
+            color: var(--text-dark);
+        }
+
+        .le-meta-content strong {
+            color: var(--dark-blue);
+            font-weight: 600;
+        }
+
+    .le-profile-content {
+        background: white;
+        border-radius: 1rem;
+        padding: 2rem;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    }
+
+    .le-section-title {
+        color: var(--dark-blue);
+        font-family: 'Playfair Display', serif;
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .le-info-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .le-info-item {
+        padding: 1.2rem;
+        background: var(--light-blue);
+        border-radius: 0.5rem;
+    }
+
+    .le-info-label {
+        color: var(--primary-blue);
+        font-size: 0.9rem;
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+
+    .le-info-value {
+        color: var(--text-dark);
+        font-weight: 500;
+    }
+
+    .le-bio-content {
+        line-height: 1.8;
+        color: var(--text-dark);
+        padding: 1rem;
+        border-left: 3px solid var(--accent-gold);
+        background: var(--light-blue);
+        border-radius: 0.5rem;
+    }
+
+    .le-profile-actions {
+        margin-top: 2rem;
+        border-top: 2px solid var(--light-blue);
+        padding-top: 2rem;
+    }
+
+    @@media (max-width: 992px) {
+        .le-profile-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .le-profile-sidebar {
+            order: 2;
+        }
+    }
+
+    @@media (max-width: 576px) {
+        .le-academic-title {
+            font-size: 2rem;
+        }
+
+        .le-info-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>

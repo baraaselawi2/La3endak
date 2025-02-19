@@ -1,0 +1,237 @@
+﻿@model IEnumerable<La3endak.Models.ContactU>
+@{
+    ViewData["Title"] = "Contact";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="le-hero-section">
+    <div class="le-hero-content">
+        <h1 class="le-hero-title">Contact ScholarMind</h1>
+        <p class="le-hero-subtitle">Get in touch with our academic team</p>
+    </div>
+</div>
+
+<div class="le-contact-section">
+    <div class="le-contact-container">
+        <div class="le-contact-card">
+            <!-- Contact Information -->
+            <div class="le-contact-info">
+                <div class="le-contact-info-item">
+                    <div class="le-contact-icon">
+                        <i class="bi bi-telephone"></i>
+                    </div>
+                    <div class="le-contact-content">
+                        <h3>Academic Support</h3>
+                        <p>+212 782-434-378</p>
+                        <span>Mon-Fri, 9am-5pm (GMT+1)</span>
+                    </div>
+                </div>
+
+                <div class="le-contact-info-item">
+                    <div class="le-contact-icon">
+                        <i class="bi bi-envelope"></i>
+                    </div>
+                    <div class="le-contact-content">
+                        <h3>Email Address</h3>
+                        <p>academics@scholarmind.edu</p>
+                        <span>Admissions: admissions@scholarmind.edu</span>
+                    </div>
+                </div>
+
+                <div class="le-contact-info-item">
+                    <div class="le-contact-icon">
+                        <i class="bi bi-geo-alt"></i>
+                    </div>
+                    <div class="le-contact-content">
+                        <h3>Campus Location</h3>
+                        <p>123 Academic Way<br>Education City, Morocco</p>
+                        <a href="#" class="le-campus-map">View Campus Map →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <form asp-action="Create_us" method="post" class="le-contact-form">
+                <div class="le-form-row">
+                    <div class="le-form-group">
+                        <input type="text" id="FullName" name="FullName" placeholder="Full Name" required />
+                        <i class="bi bi-person le-input-icon"></i>
+                    </div>
+                    <div class="le-form-group">
+                        <input type="email" id="Email" name="Email" placeholder="Email Address" required />
+                        <i class="bi bi-envelope le-input-icon"></i>
+                    </div>
+                </div>
+
+                <div class="le-form-group">
+                    <input type="text" id="Subject" name="Subject" placeholder="Subject" />
+                    <i class="bi bi-tag le-input-icon"></i>
+                </div>
+
+                <div class="le-form-group">
+                    <textarea id="Message" name="Message" placeholder="Your Message" required></textarea>
+                    <i class="bi bi-pencil le-input-icon"></i>
+                </div>
+
+                <div class="le-form-submit">
+                    <button type="submit" class="le-academic-btn">
+                        Send Message
+                        <i class="bi bi-send"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    .le-contact-section {
+        padding: 4rem 5%;
+        background: var(--light-blue);
+    }
+
+    .le-contact-container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .le-contact-card {
+        background: white;
+        border-radius: 1rem;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        display: grid;
+        grid-template-columns: 1fr 1.5fr;
+        gap: 2rem;
+        padding: 2rem;
+    }
+
+    .le-contact-info {
+        background: var(--primary-blue);
+        padding: 2rem;
+        border-radius: 0.75rem;
+        color: white;
+    }
+
+    .le-contact-info-item {
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        background: rgba(255,255,255,0.1);
+        border-radius: 0.5rem;
+    }
+
+    .le-contact-icon {
+        font-size: 1.5rem;
+        color: var(--accent-gold);
+        margin-bottom: 0.5rem;
+    }
+
+    .le-contact-content h3 {
+        font-family: 'Playfair Display', serif;
+        margin-bottom: 0.5rem;
+        color: var(--accent-gold);
+    }
+
+    .le-contact-content p {
+        font-weight: 500;
+        margin-bottom: 0.25rem;
+    }
+
+    .le-contact-content span {
+        font-size: 0.9rem;
+        color: rgba(255,255,255,0.8);
+    }
+
+    .le-campus-map {
+        color: var(--accent-gold);
+        text-decoration: none;
+        font-weight: 500;
+        display: inline-block;
+        margin-top: 0.5rem;
+    }
+
+    .le-contact-form {
+        padding: 1rem;
+    }
+
+    .le-form-group {
+        position: relative;
+        margin-bottom: 1.5rem;
+    }
+
+    .le-input-icon {
+        position: absolute;
+        right: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--primary-blue);
+    }
+
+    .le-contact-form input,
+    .le-contact-form textarea {
+        width: 100%;
+        padding: 0.8rem 1rem;
+        border: 2px solid var(--light-blue);
+        border-radius: 0.5rem;
+        font-family: 'Poppins', sans-serif;
+        transition: all 0.3s ease;
+    }
+
+        .le-contact-form input:focus,
+        .le-contact-form textarea:focus {
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(42,92,130,0.1);
+            outline: none;
+        }
+
+    .le-contact-form textarea {
+        height: 120px;
+        resize: vertical;
+    }
+
+    .le-academic-btn {
+        background: var(--gradient-blue);
+        color: white;
+        padding: 0.8rem 2rem;
+        border: none;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: transform 0.3s ease;
+    }
+
+        .le-academic-btn:hover {
+            transform: translateY(-2px);
+        }
+
+    @@media (max-width: 992px) {
+        .le-contact-card {
+            grid-template-columns: 1fr;
+        }
+
+        .le-contact-info {
+            padding: 1.5rem;
+        }
+    }
+
+    @@media (max-width: 576px) {
+        .le-contact-card {
+            padding: 1rem;
+        }
+
+        .le-form-row {
+            flex-direction: column;
+            gap: 0;
+        }
+    }
+</style>
+
+<script>
+    document.querySelector('.le-contact-form').addEventListener('submit', function (e) {
+        const btn = this.querySelector('.le-academic-btn');
+        btn.innerHTML = 'Sending... <i class="bi bi-arrow-repeat animate-spin"></i>';
+        btn.disabled = true;
+    });
+</script>

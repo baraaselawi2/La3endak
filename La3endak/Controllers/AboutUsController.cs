@@ -19,10 +19,7 @@ namespace La3endak.Controllers
         }
 
         // GET: AboutUs
-        public async Task<IActionResult> ViewAbout()
-        {
-            return View(await _context.AboutUs.ToListAsync());
-        }
+    
 
         public async Task<IActionResult> Index()
         {

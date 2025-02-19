@@ -1,32 +1,141 @@
 ﻿@model IEnumerable<La3endak.Models.Subject>
-
 @{
     ViewData["Title"] = "Subjects";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<section class="courses">
-    <h1 class="heading">Our Subjects</h1>
+<div class="le-hero-section">
+    <div class="le-hero-content">
+        <h1 class="le-hero-title">Academic Programs</h1>
+        <p class="le-hero-subtitle">Explore Our Comprehensive Curriculum</p>
+    </div>
+</div>
 
-    <div class="box-container">
+<div class="le-subjects-container">
+    <div class="le-subjects-grid">
         @foreach (var item in Model)
         {
-            <div class="box">
-
-                <div class="thumb">
+            <a href="#" class="le-subject-card">
+                <div class="le-subject-image">
                     @if (!string.IsNullOrEmpty(item.SubjectImage))
                     {
                         <img src="@Url.Content("/img/"+ item.SubjectImage)" alt="@item.SubjectName">
                     }
                     else
                     {
-                        <img src="~/img/History_Jordan.jpg" alt="Default Image">
+                        <img src="~/img/History_Jordan.jpg" alt="Academic Subject">
                     }
-                    <span>10 videos</span>
+                
                 </div>
-                <h3 class="title">@item.SubjectName</h3>
-                <a href="playlist.html" class="inline-btn">View Playlist</a>
-            </div>
+                <div class="le-subject-content">
+                    <h3 class="le-subject-title">@item.SubjectName</h3>
+                    <div class="le-subject-meta">
+                        <span class="le-credit-hours">3 Credit Hours</span>
+                        <span class="le-course-level">Undergraduate</span>
+                    </div>
+                </div>
+            </a>
         }
     </div>
-</section>
+</div>
+
+<style>
+    .le-subjects-container {
+        padding: 4rem 5%;
+        background: var(--light-blue);
+    }
+
+    .le-subjects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .le-subject-card {
+        background: white;
+        border-radius: 0.75rem;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        text-decoration: none;
+    }
+
+        .le-subject-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(42,92,130,0.1);
+        }
+
+    .le-subject-image {
+        height: 200px;
+        overflow: hidden;
+        position: relative;
+    }
+
+        .le-subject-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+    .le-subject-card:hover .le-subject-image img {
+        transform: scale(1.05);
+    }
+
+    .le-subject-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 1rem;
+        background: linear-gradient(transparent, rgba(0,0,0,0.7));
+    }
+
+    .le-subject-code {
+        color: white;
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+
+    .le-subject-content {
+        padding: 1.5rem;
+    }
+
+    .le-subject-title {
+        color: var(--dark-blue);
+        font-family: 'Playfair Display', serif;
+        font-size: 1.3rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .le-subject-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.9rem;
+    }
+
+    .le-credit-hours {
+        color: var(--primary-blue);
+        font-weight: 500;
+    }
+
+    .le-course-level {
+        color: var(--text-dark);
+        background: var(--light-blue);
+        padding: 0.3rem 0.7rem;
+        border-radius: 0.25rem;
+    }
+
+    @@media (max-width: 768px) {
+        .le-subjects-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .le-subject-image {
+            height: 180px;
+        }
+    }
+</style>

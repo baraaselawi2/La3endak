@@ -1,0 +1,338 @@
+﻿@model IEnumerable<La3endak.Models.UserAccount>
+@{
+    ViewData["Title"] = "Faculty Directory";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="le-faculty-container">
+    <div class="le-hero-section">
+        <div class="le-hero-content">
+            <h1 class="le-hero-title">Academic Faculty</h1>
+            <p class="le-hero-subtitle">Meet Our Distinguished Educators</p>
+        </div>
+    </div>
+
+    <div class="le-faculty-grid">
+        @foreach (var teacher in Model.Where(u => u.UserRole == "teacher"))
+        {
+            <div class="le-teacher-card">
+                <div class="le-card-content">
+                    <div class="le-avatar-wrapper">
+                        <div class="le-avatar-container">
+                            @if (!string.IsNullOrEmpty(teacher.UserImage))
+                            {
+                                <img src="~/img/@teacher.UserImage" alt="@teacher.UserName" class="le-avatar">
+                            }
+                            else
+                            {
+                                <div class="le-avatar-fallback">
+                                    <i class="bi bi-person-badge"></i>
+                                </div>
+                            }
+                            <div class="le-experience-badge">
+                                <i class="bi bi-mortarboard"></i>
+                                @teacher.Experience+ Years
+                            </div>
+                        </div>
+                    </div>
+                    <div class="le-teacher-info">
+                        <h3 class="le-teacher-name">Tchr. @teacher.UserName</h3>
+                        <div class="le-teacher-department">@teacher.TeacherSubject</div>
+                        <div class="le-teacher-meta">
+                            <div class="le-meta-item">
+                                <i class="bi bi-building"></i>
+                                @teacher.Address
+                            </div>
+                            <div class="le-meta-item">
+                                <i class="bi bi-clock-history"></i>
+                                @teacher.HourlyRate Hour Price
+                            </div>
+                        </div>
+                    </div>
+                    @if (!string.IsNullOrEmpty(teacher.Bio))
+                    {
+                        <div class="le-teacher-bio">
+                            <p>@teacher.Bio</p>
+                        </div>
+                    }
+                    <div class="le-card-actions">
+                        <a asp-action="TeacherProfile" asp-route-id="@teacher.UserId" class="le-profile-button">
+                            <i class="bi bi-file-person"></i> View Profile
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    :root {
+        --primary-blue: #2A5B82;
+        --dark-blue: #1A3A4D;
+        --light-blue: #F5F9FC;
+        --accent-gold: #FFD700;
+        --text-dark: #333333;
+    }
+
+    .le-faculty-container {
+        background: var(--light-blue);
+        padding-bottom: 4rem;
+        min-height: 100vh;
+    }
+
+    .le-hero-section {
+        background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
+        padding: 6rem 2rem 4rem;
+        margin-bottom: 3rem;
+    }
+
+    .le-hero-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .le-hero-title {
+        color: white;
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        font-family: 'Playfair Display', serif;
+    }
+
+    .le-hero-subtitle {
+        color: rgba(255,255,255,0.9);
+        font-size: 1.2rem;
+        font-weight: 300;
+    }
+
+    .le-faculty-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 2rem;
+        padding: 0 5%;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .le-teacher-card {
+        background: white;
+        border-radius: 0.75rem;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .le-card-content {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+
+    .le-avatar-wrapper {
+        padding: 2rem;
+        background: var(--light-blue);
+        position: relative;
+    }
+
+    .le-avatar-container {
+        position: relative;
+        width: 160px;
+        height: 160px;
+        margin: 0 auto;
+    }
+
+    .le-avatar {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid var(--primary-blue);
+        box-shadow: 0 4px 15px rgba(42,92,130,0.1);
+    }
+
+    .le-avatar-fallback {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background: var(--light-blue);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        color: var(--primary-blue);
+        border: 2px dashed var(--primary-blue);
+    }
+
+    .le-experience-badge {
+        position: absolute;
+        bottom: -10px;
+        right: -10px;
+        background: var(--accent-gold);
+        color: var(--dark-blue);
+        padding: 0.5rem 1rem;
+        border-radius: 2rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .le-teacher-info {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+    }
+
+    .le-teacher-name {
+        color: var(--dark-blue);
+        font-family: 'Playfair Display', serif;
+        font-size: 1.5rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .le-teacher-department {
+        color: var(--primary-blue);
+        font-weight: 500;
+        margin-bottom: 1.5rem;
+        position: relative;
+        display: inline-block;
+        padding-bottom: 0.5rem;
+    }
+
+        .le-teacher-department::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 2px;
+            background: var(--accent-gold);
+        }
+
+    .le-teacher-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        font-size: 0.95rem;
+        color: var(--text-dark);
+        margin: 1.5rem 0;
+    }
+
+    .le-meta-item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
+        padding: 0.5rem 0;
+    }
+
+    .le-teacher-bio {
+        padding: 1rem 1.5rem;
+        margin: 0 1.5rem 1rem;
+        background: var(--light-blue);
+        border-radius: 0.5rem;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        color: var(--text-dark);
+        flex-grow: 1;
+        max-height: 150px;
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: var(--primary-blue) var(--light-blue);
+    }
+
+        .le-teacher-bio::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .le-teacher-bio::-webkit-scrollbar-track {
+            background: var(--light-blue);
+            border-radius: 0 0 0.5rem 0.5rem;
+        }
+
+        .le-teacher-bio::-webkit-scrollbar-thumb {
+            background-color: var(--primary-blue);
+            border-radius: 6px;
+        }
+
+    .le-card-actions {
+        padding: 1.5rem;
+        text-align: center;
+        border-top: 2px solid var(--light-blue);
+        margin-top: auto;
+    }
+
+    .le-profile-button {
+        background: var(--primary-blue);
+        color: white;
+        padding: 0.8rem 2rem;
+        border: none;
+        border-radius: 0.5rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        width: calc(100% - 3rem);
+        justify-content: center;
+        margin: 0 1.5rem;
+    }
+
+        .le-profile-button:hover {
+            background: var(--dark-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(42,92,130,0.2);
+        }
+
+    @@media (max-width: 768px) {
+        .le-hero-section {
+            padding: 4rem 1rem 2rem;
+        }
+
+        .le-hero-title {
+            font-size: 2rem;
+        }
+
+        .le-faculty-grid {
+            padding: 0 2%;
+            gap: 1.5rem;
+        }
+
+        .le-avatar-container {
+            width: 140px;
+            height: 140px;
+        }
+
+        .le-teacher-bio {
+            max-height: 120px;
+            margin: 0 1rem 1rem;
+            padding: 0.75rem 1rem;
+        }
+
+        .le-profile-button {
+            width: calc(100% - 2rem);
+            margin: 0 1rem;
+            padding: 0.6rem 1rem;
+        }
+    }
+
+    @@media (max-width: 480px) {
+        .le-hero-title {
+            font-size: 1.75rem;
+        }
+
+        .le-hero-subtitle {
+            font-size: 1rem;
+        }
+
+        .le-faculty-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>

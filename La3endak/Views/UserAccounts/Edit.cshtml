@@ -52,8 +52,9 @@
                             <div class="form-group cyber-input">
                                 <label asp-for="UserRole" class="cyber-label"></label>
                                 <select asp-for="UserRole" class="form-control cyber-control">
-                                    <option value="Admin">Admin</option>
-                                    <option value="User">User</option>
+                                    <option value="admin">Admin</option>
+                                    <option value="student">student</option>
+                                    <option value="teacher">teacher</option>
                                 </select>
                                 <span asp-validation-for="UserRole" class="text-danger cyber-validation"></span>
                             </div>

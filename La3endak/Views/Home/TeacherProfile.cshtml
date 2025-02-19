@@ -1,0 +1,254 @@
+﻿@model La3endak.Models.UserAccount
+@{
+    ViewData["Title"] = "Teacher Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="teacher-profile-container">
+    <div class="profile-header">
+        <a asp-action="teacher" class="back-button">
+            <i class="bi bi-arrow-left"></i> Back to Faculty
+        </a>
+        <h1>Tchr @Model.UserName</h1>
+        <p class="subject-expertise">@Model.TeacherSubject Specialist</p>
+    </div>
+
+    <div class="profile-content">
+        <div class="profile-sidebar">
+            <div class="avatar-container">
+                @if (!string.IsNullOrEmpty(Model.UserImage))
+                {
+                    <img src="~/img/@Model.UserImage" alt="@Model.UserName" class="profile-avatar">
+                }
+                else
+                {
+                    <div class="avatar-fallback">
+                        <i class="bi bi-person-circle"></i>
+                    </div>
+                }
+            </div>
+
+            <div class="teacher-meta">
+                <div class="meta-item">
+                    <i class="bi bi-award"></i>
+                    <span>@Model.Experience+ Years Experience</span>
+                </div>
+                <div class="meta-item">
+                    <i class="bi bi-geo-alt"></i>
+                    <span>@Model.Address</span>
+                </div>
+                <div class="meta-item">
+                    <i class="bi bi-envelope"></i>
+                    <span>@Model.Email</span>
+                </div>
+                <div class="meta-item">
+                    <i class="bi bi-clock"></i>
+                    <span>@Model.HourlyRate Hour Price</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-main">
+            <section class="bio-section">
+                <h2>Professional Bio</h2>
+                <div class="bio-content">
+                    @Model.Bio
+                </div>
+            </section>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <section class="education-section">
+                        <h2>Education</h2>
+                        <div class="education-item">
+                            <i class="bi bi-mortarboard"></i>
+                            <div>
+                                <h3>@Model.TeacherSubject</h3>
+                                <p class="text-muted">Degree Obtained</p>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="col-md-6">
+                    <section class="subjects-section">
+                        <h2>Teaching Subjects</h2>
+                        <div class="subject-tags">
+                            <!-- Update this based on your subject relationship -->
+                            <span class="subject-tag">@Model.TeacherSubject</span>
+                            <!-- Add more subjects if available -->
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .teacher-profile-container {
+        background: var(--light-blue);
+        min-height: 100vh;
+        padding: 2rem 5%;
+    }
+
+    .profile-header {
+        text-align: center;
+        margin-bottom: 3rem;
+        position: relative;
+    }
+
+    .back-button {
+        position: absolute;
+        left: 0;
+        top: 0.5rem;
+        color: var(--primary-blue);
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .profile-header h1 {
+        color: var(--dark-blue);
+        font-family: 'Playfair Display', serif;
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .subject-expertise {
+        color: var(--primary-blue);
+        font-size: 1.2rem;
+        font-weight: 500;
+    }
+
+    .profile-content {
+        display: grid;
+        grid-template-columns: 280px 1fr;
+        gap: 3rem;
+        background: white;
+        padding: 2rem;
+        border-radius: 1rem;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+
+    .profile-sidebar {
+        border-right: 2px solid var(--light-blue);
+        padding-right: 2rem;
+    }
+
+    .avatar-container {
+        width: 200px;
+        height: 200px;
+        margin: 0 auto 2rem;
+    }
+
+    .profile-avatar {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid var(--primary-blue);
+    }
+
+    .avatar-fallback {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background: var(--light-blue);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 4rem;
+        color: var(--primary-blue);
+    }
+
+    .teacher-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
+    }
+
+    .meta-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        color: var(--text-dark);
+        font-size: 0.95rem;
+    }
+
+        .meta-item i {
+            font-size: 1.2rem;
+            color: var(--primary-blue);
+            width: 30px;
+        }
+
+    .bio-section h2,
+    .education-section h2,
+    .subjects-section h2 {
+        color: var(--dark-blue);
+        font-family: 'Playfair Display', serif;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid var(--accent-gold);
+        display: inline-block;
+    }
+
+    .bio-content {
+        line-height: 1.8;
+        color: var(--text-dark);
+        margin-bottom: 2rem;
+    }
+
+    .education-item {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .subject-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+    }
+
+    .subject-tag {
+        background: var(--light-blue);
+        color: var(--primary-blue);
+        padding: 0.5rem 1rem;
+        border-radius: 2rem;
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+
+    @@media (max-width: 992px) {
+        .profile-content {
+            grid-template-columns: 1fr;
+            padding: 1.5rem;
+        }
+
+        .profile-sidebar {
+            border-right: none;
+            border-bottom: 2px solid var(--light-blue);
+            padding-right: 0;
+            padding-bottom: 2rem;
+        }
+
+        .avatar-container {
+            width: 160px;
+            height: 160px;
+        }
+    }
+
+    @@media (max-width: 576px) {
+        .profile-header h1 {
+            font-size: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .back-button {
+            position: static;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+    }
+</style>

@@ -1,80 +1,305 @@
-﻿
-<!DOCTYPE html>
-<html lang="en">
+﻿<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="png" href="images/icon/favicon.png">
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>La3endak Academy</title>
+    <meta name="description" content="Online Learning Platform">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #2A5C82;
+            --accent-gold: #FFD700;
+            --light-blue: #E8F1F5;
+            --dark-blue: #1A3650;
+            --gradient-blue: linear-gradient(135deg, #2A5C82 0%, #1A3650 100%);
+            --text-dark: #2A2A2A;
+        }
 
-    <!-- font awesome cdn link  -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <!-- custom css file link  -->
-    <link rel="stylesheet" href="/css/style.css">
-   
+        body {
+            background: #ffffff;
+            color: var(--text-dark);
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+        }
 
+        /* Academic Header Styles */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background: var(--primary-blue);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+
+        .le-logo {
+            color: white;
+            font-size: 1.75rem;
+            font-family: 'Playfair Display', serif;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .le-logo i {
+            color: var(--accent-gold);
+        }
+
+        nav ul {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.le-active {
+            background: var(--accent-gold);
+            color: var(--dark-blue);
+        }
+
+        /* Main Content Area */
+        .le-main-content {
+            margin-top: 80px;
+            padding: 4rem 5%;
+        }
+
+        /* Hero Section */
+        .le-hero-section {
+            background: var(--gradient-blue);
+            padding: 6rem 2rem;
+            text-align: center;
+            color: white;
+            border-radius: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .le-hero-title {
+            font-size: 2.75rem;
+            margin-bottom: 1.5rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .le-hero-subtitle {
+            font-size: 1.25rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Courses Grid */
+        .le-courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        .le-course-card {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            border: 2px solid var(--light-blue);
+        }
+
+        .le-course-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .le-course-category {
+            color: var(--primary-blue);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .le-course-title {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Academic Footer */
+        footer {
+            background: var(--dark-blue);
+            color: white;
+            padding: 4rem 5%;
+            margin-top: 4rem;
+        }
+
+        .le-footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .le-footer-section h4 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 1.5rem;
+            color: var(--accent-gold);
+        }
+
+        .le-footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .le-footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .le-footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .le-footer-links a:hover {
+            color: var(--accent-gold);
+        }
+
+        /* Academic Badges */
+        .le-badge {
+            background: var(--accent-gold);
+            color: var(--dark-blue);
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* Responsive Design */
+        @@media (max-width: 992px) {
+            nav ul {
+                display: none;
+            }
+
+            .le-menu-icon {
+                display: block;
+                color: white;
+            }
+
+            .le-hero-title {
+                font-size: 2rem;
+            }
+        }
+
+        @@media (max-width: 768px) {
+            .le-main-content {
+                padding: 2rem 5%;
+            }
+
+            .le-hero-section {
+                padding: 4rem 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Navigation -->
+    <nav>
+        <div class="le-logo">
+            <i class="bi bi-mortarboard"></i>
+            La3endak
+        </div>
+        <ul>
+            <li><a class="le-active" href="@Url.Action("Index", "Home")">Home</a></li>
+            <li><a href="@Url.Action("Subject", "Home")">Subject</a></li>
+            <li><a href="@Url.Action("teacher", "Home")">teacher</a></li>
+            <li><a href="@Url.Action("testimonail", "Home")">Review</a></li>
 
-    <header class="header">
+            <li><a href="@Url.Action("Service", "Home")">Service</a></li>
+            <li><a href="@Url.Action("ContactUs", "Home")">Contact</a></li>
+            <li><a href="@Url.Action("About", "Home")">About</a></li>
+            <li><a href="@Url.Action("Profile", "Home")">Profile</a></li>
+        </ul>
+        <form asp-controller="LogReg" asp-action="Logout" method="post">
+            <button type="submit" class="le-get-started">Logout</button>
+        </form>
+        <i class="bi bi-list le-menu-icon" onclick="sideMenu(0)"></i>
+    </nav>
 
-        <section class="flex">
+    <!-- Main Content -->
+    <div class="le-main-content">
+        @RenderBody()
+    </div>
 
-            <a href="home.html" class="logo">La3endak</a>
-
-            <form action="search.html" method="post" class="search-form">
-                <input type="text" name="search_box" required placeholder="search courses..." maxlength="100">
-                <button type="submit" class="fas fa-search"></button>
-            </form>
-
-            <div class="icons">
-                <div id="menu-btn" class="fas fa-bars"></div>
-                <div id="search-btn" class="fas fa-search"></div>
-                <div id="user-btn" class="fas fa-user"></div>
-                <div id="toggle-btn" class="fas fa-sun"></div>
-            </div>
-
-            <div class="profile">
-                <img src="/images/pic-1.jpg" class="image" alt="">
-                <h3 class="name">shaikh anas</h3>
-                <p class="role">studen</p>
-                <a href="profile.html" class="btn">view profile</a>
-                <div class="flex-btn">
-                    <a href="login.html" class="option-btn">login</a>
-                    <a href="register.html" class="option-btn">register</a>
+    <!-- Footer -->
+    <footer>
+        <div class="le-footer-container">
+            <div class="le-footer-section">
+                <h4>ScholarMind Academy</h4>
+                <p>Empowering minds through quality education since 2023</p>
+                <div class="le-social-links">
+                    <a href="#"><i class="bi bi-facebook"></i></a>
+                    <a href="#"><i class="bi bi-linkedin"></i></a>
+                    <a href="#"><i class="bi bi-youtube"></i></a>
                 </div>
             </div>
-         
+            <div class="le-footer-section">
+                <h4>Quick Links</h4>
+                <ul class="le-footer-links">
+                    <li><a class="le-active" href="@Url.Action("Index", "Home")">Home</a></li>
+                    <li><a href="@Url.Action("Subject", "Home")">Subject</a></li>
+                    <li><a href="@Url.Action("teacher", "Home")">teacher</a></li>
+                    <li><a href="@Url.Action("testimonail", "Home")">Review</a></li>
 
-        </section>
-        @RenderBody()
-    </header>
-
-    <div class="side-bar">
-
-        <div id="close-btn">
-            <i class="fas fa-times"></i>
+                    <li><a href="@Url.Action("Service", "Home")">Service</a></li>
+                    <li><a href="@Url.Action("Contact", "Home")">Contact</a></li>
+                    <li><a href="@Url.Action("About", "Home")">About</a></li>
+                    <li><a href="@Url.Action("Profile", "Home")">Profile</a></li>
+                </ul>
+            </div>
+            <div class="le-footer-section">
+                <h4>Contact</h4>
+                <p><i class="bi bi-geo-alt"></i> 123 Academic Way, Education City</p>
+                <p><i class="bi bi-envelope"></i> info@scholarmind.edu</p>
+                <p><i class="bi bi-phone"></i> (555) 123-4567</p>
+            </div>
         </div>
+    </footer>
 
-        <div class="profile">
-            <img src="/img/pic-1.jpg" class="image" alt="">
-            <h3 class="name">shaikh anas</h3>
-            <p class="role">studen</p>
-            <a href="profile.html" class="btn">view profile</a>
-        </div>
-
-        <nav class="navbar">
-            <a href="@Url.Action("Index", "Home")"><i class="fas fa-home"></i><span>home</span></a>
-            <a href="@Url.Action("ViewAbout", "AboutUs")"><i class="fas fa-question"></i><span>about</span></a>
-            <a href="courses.html"><i class="fas fa-graduation-cap"></i><span>courses</span></a>
-            <a href="teachers.html"><i class="fas fa-chalkboard-user"></i><span>teachers</span></a>
-            <a href="@Url.Action("ViewContact", "ContactUs")"><i class="fas fa-headset"></i><span>contact us</span></a>
-        </nav>
-
-    </div>
-    <script src="/js/script.js"></script>
-  
+    <script>
+        // Mobile Menu Toggle
+        function sideMenu(close) {
+            const menu = document.querySelector('nav ul');
+            if (close) {
+                menu.style.display = 'none';
+            } else {
+                menu.style.display = 'flex';
+                menu.style.flexDirection = 'column';
+                menu.style.position = 'absolute';
+                menu.style.top = '100%';
+                menu.style.right = '0';
+                menu.style.background = 'var(--primary-blue)';
+                menu.style.padding = '1rem';
+            }
+        }
+    </script>
 </body>
-</html>
 @await RenderSectionAsync("Scripts", required: false)
+</html>
