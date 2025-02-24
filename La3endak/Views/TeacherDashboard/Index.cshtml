@@ -1,0 +1,267 @@
+﻿@model IEnumerable<La3endak.Models.Order>
+@{
+    ViewData["Title"] = "Teacher Dashboard";
+    Layout = "~/Views/Shared/_teacher.cshtml";
+}
+
+<div class="container mt-4">
+    <!-- Header -->
+    <div class="row mb-4">
+        <div class="col-12 text-center">
+            <h1 class="display-5 fw-bold text-primary gradient-text">📚 Tutorial Requests Dashboard</h1>
+            <!-- In the header section, change: -->
+            <p class="lead text-muted">Manage student requests for @ViewBag.TeacherSubject</p>
+        </div>
+    </div>
+    <!-- Revenue Cards Section -->
+    <div class="row mb-4" data-aos="fade-up">
+        <!-- In your view card for Total Revenue, ensure you're using: -->
+        <h2 class="display-4 fw-bold">@ViewBag.TotalRevenue</h2>
+
+        <!-- Full revenue card example -->
+        <div class="col-md-4 mb-3">
+            <div class="card stat-card bg-primary text-white shadow-lg hover-effect">
+                <div class="card-body text-center">
+                    <h3 class="card-title"><i class="fas fa-coins me-2"></i>Total Revenue</h3>
+                    <h2 class="display-4 fw-bold">@ViewBag.TotalRevenue</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card stat-card bg-success text-white shadow-lg hover-effect">
+                <div class="card-body text-center">
+                    <h3 class="card-title"><i class="fas fa-clock me-2"></i>Completed Hours</h3>
+                    <h2 class="display-5 fw-bold">@ViewBag.TotalHours</h2>
+                </div>
+            </div>
+        </div>
+    
+    </div>
+    <!-- Stats & Map -->
+    <div class="row g-4 mb-5" data-aos="fade-up">
+        <div class="col-lg-4">
+            <div class="card stat-card bg-primary text-white shadow-lg">
+                <div class="card-body">
+                    <h3 class="card-title">📊 Request Stats</h3>
+                    <canvas id="statusChart" style="height: 200px"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <div class="card map-card shadow-lg">
+                <div class="card-body">
+                    <h3 class="card-title">📍 Student Locations in Jordan</h3>
+                    <div id="jordanMap" style="min-height: 300px; height: 100%; border-radius: 15px"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Requests List -->
+    <div class="requests-section" data-aos="fade-up">
+        @if (TempData["StatusMessage"] != null)
+        {
+            <div class="alert alert-dismissible alert-info fade show shadow-sm bounce">
+                <i class="fas fa-info-circle me-2"></i>@TempData["StatusMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
+
+        @if (!Model.Any())
+        {
+            <div class="alert alert-warning shadow-sm pulse">
+                <i class="fas fa-exclamation-circle me-2"></i>
+                No pending requests found for your subject (@ViewBag.TeacherSubject).
+            </div>
+        }
+        else
+        {
+            <div class="row g-4">
+                @foreach (var order in Model)
+                {
+                    <div class="col-12 col-md-6 col-lg-4" data-aos="zoom-in">
+                        <div class="card h-100 border-0 shadow-sm hover-effect">
+                            <div class="card-header bg-primary text-white py-3">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0 fw-semibold">
+                                        <i class="fas fa-book-open me-2"></i>
+                                        @order.Subject?.SubjectName
+                                    </h5>
+                                    <span class="badge bg-warning text-dark">Pending</span>
+                                </div>
+                            </div>
+
+                            <div class="card-body pb-0">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="avatar bg-primary text-white rounded-circle me-3">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-0 fw-semibold">@order.User?.UserName</h6>
+                                        <small class="text-muted">Student Request</small>
+                                    </div>
+                                </div>
+
+                                <div class="row g-2 mb-3">
+                                    <div class="col-6">
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-calendar-day text-primary me-2"></i>
+                                            <div>
+                                                <small class="text-muted">Date</small>
+                                                <div class="fw-semibold">@order.RequestedDate?.ToString("dd MMM yyyy")</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-clock text-primary me-2"></i>
+                                            <div>
+                                                <small class="text-muted">Time</small>
+                                                <div class="fw-semibold">@order.RequestedTime?.ToString("hh:mm tt")</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                @if (!string.IsNullOrEmpty(order.AdditionalNotes))
+                                {
+                                    <div class="bg-light p-3 rounded mb-3">
+                                        <h6 class="text-muted mb-2 small"><i class="fas fa-comment-dots me-2"></i>Student Notes</h6>
+                                        <p class="mb-0 text-dark">@order.AdditionalNotes</p>
+                                    </div>
+                                }
+                            </div>
+
+                            <div class="card-footer bg-transparent border-top-0 pt-0 pb-3">
+                                <div class="d-flex gap-2">
+                                    <form method="post" class="w-50">
+                                        <input type="hidden" name="id" value="@order.OrderId" />
+                                        <button type="submit"
+                                                asp-action="ApproveOrder"
+                                                class="btn btn-success w-100 btn-action">
+                                            <i class="fas fa-check-circle me-2"></i>Approve
+                                        </button>
+                                    </form>
+                                    <form method="post" class="w-50">
+                                        <input type="hidden" name="id" value="@order.OrderId" />
+                                        <button type="submit"
+                                                asp-action="RejectOrder"
+                                                class="btn btn-danger w-100 btn-action">
+                                            <i class="fas fa-times-circle me-2"></i>Reject
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // ```javascript
+        // Initialize AOS animations
+        AOS.init({
+            duration: 1000,
+            once: true,
+            easing: 'ease-out-back'
+        });
+
+        // Status Chart
+        const ctx = document.getElementById('statusChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Approved', 'Rejected', 'Pending'],
+                datasets: [{
+                    data: [@ViewBag.ApprovedCount, @ViewBag.RejectedCount, @ViewBag.PendingCount],
+                    backgroundColor: ['#4CAF50', '#F44336', '#FFC107'],
+                    hoverOffset: 20
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { color: 'white', font: { size: 14 } }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    }
+                }
+            }
+        });
+
+        // Jordan Map with proper view
+        const map = L.map('jordanMap').setView([31.24, 36.51], 6.4); // Adjusted zoom level
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        // More accurate locations
+        const locations = [
+            { coords: [31.9539, 35.9106], title: 'Amman Student' },
+            { coords: [32.5561, 35.8469], title: 'Irbid Student' },
+            { coords: [29.5319, 35.0056], title: 'Aqaba Student' },
+            { coords: [32.0392, 35.7272], title: 'Zarqa Student' },
+            { coords: [31.7167, 35.8000], title: 'Madaba Student' }
+        ];
+
+        locations.forEach(loc => {
+            L.marker(loc.coords)
+                .addTo(map)
+                .bindPopup(loc.title)
+                .openPopup();
+        });
+
+        // Form handling
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function (e) {
+                const btn = this.querySelector('button');
+                btn.disabled = true;
+                btn.innerHTML = `<i class="fas fa-spinner fa-spin me-2"></i>Processing...`;
+                btn.classList.add('processing');
+            });
+        });
+    </script>
+}

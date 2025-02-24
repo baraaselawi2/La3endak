@@ -41,7 +41,7 @@ namespace rental.Controllers
                     case "admin":
                         return RedirectToAction("Index", "admin");
                     case "teacher":
-                        return RedirectToAction("Driver", "Driver");
+                        return RedirectToAction("Index", "TeacherDashboard");
                     case "student":
                         return RedirectToAction("Index", "Home"); // Handle both Driver and User roles here
                     default:

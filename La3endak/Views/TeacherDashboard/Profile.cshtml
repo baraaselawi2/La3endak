@@ -1,0 +1,269 @@
+﻿@model La3endak.Models.UserAccount
+@{
+    ViewData["Title"] = "teacher dashboard";
+    Layout = "~/Views/Shared/_teacher.cshtml";
+}
+
+
+<div class="container-fluid cyber-container">
+    <div class="profile-header">
+        <h1 class="cyber-title glitch" data-text="@Model.UserName">@Model.UserName</h1>
+        <div class="role-badge admin">@Model.UserRole</div>
+    </div>
+
+    <div class="cyber-profile-grid">
+        <!-- Left Column -->
+        <div class="cyber-profile-section">
+            <div class="image-container profile-img">
+                @if (!string.IsNullOrEmpty(Model.UserImage))
+                {
+                    <img src="~/img/@Model.UserImage" class="cyber-image" alt="Profile Image">
+                }
+                else
+                {
+                    <img src="https://via.placeholder.com/300x400" class="cyber-image" alt="No Image">
+                }
+                <div class="scanline"></div>
+                <div class="hologram-effect"></div>
+            </div>
+
+            <div class="profile-quick-info">
+                <div class="info-item">
+                    <i class="bi bi-calendar-event"></i>
+                    <span>Member since @Model.CreatedAt?.ToString("yyyy")</span>
+                </div>
+                <div class="info-item">
+                    <i class="bi bi-shield-check"></i>
+                    <span>Teacher Privileges</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="cyber-profile-section">
+            <div class="profile-detail-box">
+                <h3 class="detail-title"><i class="bi bi-person-lines-fill"></i> Personal Data</h3>
+                <div class="detail-content">
+                    <div class="detail-row">
+                        <span class="detail-label">Full Name:</span>
+                        <span class="detail-value">@Model.UserName</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Email:</span>
+                        <span class="detail-value">@Model.Email</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Phone:</span>
+                        <span class="detail-value">@Model.Phone</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-detail-box">
+                <h3 class="detail-title"><i class="bi bi-geo-alt-fill"></i> Location Data</h3>
+                <div class="detail-content">
+                    <div class="detail-row">
+                        <span class="detail-label">Address:</span>
+                        <span class="detail-value">@Model.Address</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-detail-box">
+                <h3 class="detail-title"><i class="bi bi-terminal-fill"></i> Bio</h3>
+                <div class="detail-content bio-content">
+                    @Model.Bio
+                </div>
+            </div>
+
+            <div class="profile-actions">
+                <a asp-controller="UserAccounts" asp-action="Edit" asp-route-id="@Model.UserId"
+                   class="btn-cyber">
+                    <i class="bi bi-pencil-square me-2"></i>
+                    Edit Profile
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .cyber-profile-grid {
+        display: grid;
+        grid-template-columns: 300px 1fr;
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .profile-header {
+        text-align: center;
+        margin-bottom: 3rem;
+        position: relative;
+    }
+
+    .glitch {
+        position: relative;
+        animation: glitch 3s infinite;
+    }
+
+    @@keyframes glitch {
+        0% {
+            text-shadow: 0 0 20px #0ff;
+        }
+
+        95% {
+            text-shadow: 0 0 20px #0ff;
+        }
+
+        96% {
+            text-shadow: -2px 0 magenta, 2px 0 #0ff;
+        }
+
+        97% {
+            text-shadow: 2px 0 magenta, -2px 0 #0ff;
+        }
+
+        98% {
+            text-shadow: -2px 0 #0ff, 2px 0 magenta;
+        }
+
+        99% {
+            text-shadow: 2px 0 #0ff, -2px 0 magenta;
+        }
+
+        100% {
+            text-shadow: 0 0 20px #0ff;
+        }
+    }
+
+    .profile-img {
+        border: 3px solid #0ff;
+        border-radius: 50%;
+        overflow: hidden;
+        box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+        margin-bottom: 2rem;
+        width: 300px;
+        height: 300px;
+        position: relative;
+    }
+
+    .cyber-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    /* Keep existing hologram effects */
+    .hologram-effect {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, transparent 48%, rgba(0, 255, 255, 0.1) 50%, transparent 52%);
+        animation: hologram 3s infinite;
+    }
+
+    @@keyframes hologram {
+        0% {
+            background-position: -100% 0;
+        }
+
+        100% {
+            background-position: 200% 0;
+        }
+    }
+
+    .profile-detail-box {
+        background: rgba(16, 16, 32, 0.8);
+        border: 1px solid #0ff;
+        border-radius: 10px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .detail-title {
+        color: #0ff;
+        border-bottom: 2px solid magenta;
+        padding-bottom: 0.5rem;
+        margin-bottom: 1.5rem;
+        font-size: 1.25rem;
+    }
+
+    .detail-content {
+        padding: 0 1rem;
+    }
+
+    .detail-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 0;
+        border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+    }
+
+    .detail-label {
+        color: #8af;
+        font-weight: bold;
+    }
+
+    .detail-value {
+        color: #0ff;
+        max-width: 60%;
+        text-align: right;
+    }
+
+    .bio-content {
+        color: #8af;
+        line-height: 1.6;
+        padding: 1rem;
+        border: 1px dashed #0ff;
+        border-radius: 5px;
+    }
+
+    .profile-quick-info {
+        background: rgba(16, 16, 32, 0.8);
+        padding: 1.5rem;
+        border: 1px solid #0ff;
+        border-radius: 10px;
+    }
+
+    .info-item {
+        display: flex;
+        align-items: center;
+        margin: 1rem 0;
+        color: #0ff;
+    }
+
+        .info-item i {
+            font-size: 1.2rem;
+            margin-right: 1rem;
+            color: magenta;
+        }
+
+    .profile-actions {
+        text-align: center;
+        margin-top: 2rem;
+    }
+
+    @@media (max-width: 768px) {
+        .cyber-profile-grid {
+            grid-template-columns: 1fr;
+            padding: 0 1rem;
+        }
+
+        .detail-row {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .detail-value {
+            text-align: left;
+            margin-top: 0.5rem;
+        }
+    }
+</style>
