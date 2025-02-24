@@ -90,6 +90,58 @@
                 </div>
             </div>
 
+            <!-- Order History Section -->
+            <div class="le-profile-section">
+                <h3 class="le-section-title">
+                    <i class="bi bi-clock-history"></i>
+                    Tutoring History
+                </h3>
+                
+                @if (Model.Orders.Any())
+                {
+                    <div class="le-order-history">
+                        <div class="le-order-header">
+                            <div>Subject</div>
+                            <div>Request Date</div>
+                            <div>Time</div>
+                            <div>Status</div>
+                            <div>Notes</div>
+                        </div>
+                        
+                        @foreach (var order in Model.Orders.OrderByDescending(o => o.RequestedDate))
+                        {
+                            <div class="le-order-item">
+                                <div class="le-order-subject">
+                                    @order.Subject?.SubjectName
+                                </div>
+                                <div class="le-order-subject">
+                                    @order.User?.UserName=="teacher"
+                                </div>
+                                <div class="le-order-date">
+                                    @order.RequestedDate
+                                </div>
+                                <div class="le-order-time">
+                                    @order.RequestedTime
+                                </div>
+                                <div class="le-order-status">
+                                    <span class="le-status-badge @order.Status.ToLower()">@order.Status</span>
+                                </div>
+                                <div class="le-order-notes">
+                                    @order.AdditionalNotes
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="le-no-orders">
+                        <i class="bi bi-calendar-x"></i>
+                        <p>No tutoring sessions booked yet</p>
+                    </div>
+                }
+            </div>
+
             <div class="le-profile-section">
                 <h3 class="le-section-title">
                     <i class="bi bi-file-text"></i>
@@ -112,6 +164,7 @@
 </div>
 
 <style>
+    /* Existing Styles */
     .le-profile-container {
         padding: 4rem 5%;
         background: var(--light-blue);
@@ -164,11 +217,11 @@
         margin-bottom: 2rem;
     }
 
-        .le-profile-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+    .le-profile-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
 
     .le-profile-image-placeholder {
         width: 100%;
@@ -195,25 +248,20 @@
         border-radius: 0.5rem;
     }
 
-        .le-meta-item i {
-            font-size: 1.5rem;
-            color: var(--primary-blue);
-        }
-
-    .le-meta-content {
-        display: flex;
-        flex-direction: column;
+    .le-meta-item i {
+        font-size: 1.5rem;
+        color: var(--primary-blue);
     }
 
-        .le-meta-content span {
-            font-size: 0.9rem;
-            color: var(--text-dark);
-        }
+    .le-meta-content span {
+        font-size: 0.9rem;
+        color: var(--text-dark);
+    }
 
-        .le-meta-content strong {
-            color: var(--dark-blue);
-            font-weight: 600;
-        }
+    .le-meta-content strong {
+        color: var(--dark-blue);
+        font-weight: 600;
+    }
 
     .le-profile-content {
         background: white;
@@ -272,23 +320,96 @@
         padding-top: 2rem;
     }
 
-    @@media (max-width: 992px) {
-        .le-profile-grid {
-            grid-template-columns: 1fr;
-        }
-
-        .le-profile-sidebar {
-            order: 2;
-        }
+    /* Order History Styles */
+    .le-order-history {
+        border: 1px solid var(--light-blue);
+        border-radius: 0.5rem;
+        overflow: hidden;
     }
 
-    @@media (max-width: 576px) {
-        .le-academic-title {
-            font-size: 2rem;
-        }
+    .le-order-header {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 1rem;
+        padding: 1rem;
+        background: var(--light-blue);
+        font-weight: 600;
+        color: var(--primary-blue);
+    }
 
-        .le-info-grid {
+    .le-order-item {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 1rem;
+        padding: 1rem;
+        border-bottom: 1px solid var(--light-blue);
+    }
+
+    .le-order-item:last-child {
+        border-bottom: none;
+    }
+
+    .le-status-badge {
+        padding: 0.25rem 0.75rem;
+        border-radius: 1rem;
+        font-size: 0.85rem;
+        font-weight: 500;
+        text-transform: capitalize;
+    }
+
+    .le-status-badge.pending {
+        background: #fff3cd;
+        color: #856404;
+    }
+
+    .le-status-badge.confirmed {
+        background: #d4edda;
+        color: #155724;
+    }
+
+    .le-status-badge.completed {
+        background: #d1ecf1;
+        color: #0c5460;
+    }
+
+    .le-status-badge.cancelled {
+        background: #f8d7da;
+        color: #721c24;
+    }
+
+    .le-no-orders {
+        text-align: center;
+        padding: 2rem;
+        background: var(--light-blue);
+        border-radius: 0.5rem;
+    }
+
+    .le-no -orders i {
+        font-size: 2rem;
+        color: var(--primary-blue);
+    }
+
+    .le-no-orders p {
+        margin-top: 1rem;
+        color: var(--text-dark);
+        font-weight: 500;
+    }
+
+    /* Responsive adjustments */
+    @@media (max-width: 768px) {
+        .le-order-header {
+            display: none;
+        }
+        .le-order-item {
             grid-template-columns: 1fr;
+            padding: 1.5rem;
+            gap: 0.5rem;
+        }
+        .le-order-item > div::before {
+            content: attr(data-label);
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-right: 0.5rem;
         }
     }
 </style>

@@ -18,7 +18,6 @@ namespace La3endak.Controllers
             _logger = logger;
             _context = context;
         }
-
         public async Task<IActionResult> Profile()
         {
             var studentEmail = HttpContext.Session.GetString("UserEmail");
@@ -28,6 +27,8 @@ namespace La3endak.Controllers
             }
 
             var student = await _context.UserAccounts
+                .Include(u => u.Orders)
+                    .ThenInclude(o => o.Subject)
                 .FirstOrDefaultAsync(u => u.Email == studentEmail && u.UserRole == "student");
 
             return student == null ? RedirectToAction("Login", "LogReg") : View(student);
